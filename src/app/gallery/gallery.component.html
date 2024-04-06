@@ -1,0 +1,8 @@
+<div class="gallery-container">
+  <h2 class="title">Mi galeria</h2>
+  <div class="images-list">
+    @for(imageElement of images; track imageElement.id) {
+      <app-image-element [imageElement]="imageElement" />
+    }
+  </div>
+</div>
