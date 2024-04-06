@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop'
 import { Image, ImagesService } from '../../core/images-service.service';
 import { ImageElementComponent } from './image-element/image-element.component';
 
@@ -9,12 +10,16 @@ import { ImageElementComponent } from './image-element/image-element.component';
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss'
 })
-export class GalleryComponent implements OnInit {
-  images: Image[] = [];
+export class GalleryComponent {
+  #imageService = inject(ImagesService)
 
-  constructor(private readonly imageService: ImagesService) { }
+  images: Image[] = this.#imageService.images().data;
+  loading: boolean = this.#imageService.images().loading;
 
-  async ngOnInit(): Promise<void> {
-    this.images = await this.imageService.getAll()
+  getDetailImage(id: number) {
+    this.#imageService.getImageByUserId(id)
+      .subscribe(res => {
+        console.log(res)
+      })
   }
 }

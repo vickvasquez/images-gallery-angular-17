@@ -1,10 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface Image {
   id: number;
   name: string;
   url: string;
 }
+
+interface Response<T> {
+  loading: boolean;
+  data: T;
+}
+
+export interface ImagesResponse extends Response<Image[]> {}
+export interface ImageResponse extends Response<Image> {}
 
 const IMAGES: Image[] = [
   {
@@ -28,10 +37,32 @@ const IMAGES: Image[] = [
   providedIn: 'root'
 })
 export class ImagesService {
+  #state = signal<ImagesResponse>({
+    loading: true,
+    data: []
+  })
 
-  constructor() { }
+  images = computed(() => this.#state())
 
-  async getAll(): Promise<Image[]> {
-    return Promise.resolve(IMAGES);
+  constructor() {
+    this.#state.set(({
+      loading: false,
+      data: IMAGES
+    }))
+  }
+
+  getImageByUserId(id: number): Observable<ImageResponse> {
+    const image = IMAGES.find(image => image.id === +id) ?? {
+      id: 0,
+      name: '',
+      url: ''
+    }
+
+    return new Observable(subscriber => {
+      subscriber.next({
+        loading: false,
+        data: image
+      })
+    })
   }
 }

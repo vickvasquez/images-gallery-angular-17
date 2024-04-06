@@ -2,12 +2,48 @@
   padding: 1rem;
   border-radius: 5px;
 
+  &::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background-color: rgba($color: #000000, $alpha: .3);
+    z-index: 2;
+    display: none;
+  }
+
   &:hover {
     background-color: rgba($color: #000000, $alpha: .8);
+
+    >.button-detail {
+      visibility: visible;
+      z-index: 3;
+    }
+
+    &::after {
+      display: block;
+    }
   }
 
   img {
     aspect-ratio: 16/9;
     cursor: pointer;
+  }
+
+  .button-detail {
+    background-color: rgba($color: blue, $alpha: .7);
+    border: none;
+    outline: 0;
+    padding: 1rem;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    left: 45%;
+    top: 45%;
+    visibility: hidden;
+
+    &:hover {
+      background-color: rgba($color: blue, $alpha: .9);
+    }
   }
 }
