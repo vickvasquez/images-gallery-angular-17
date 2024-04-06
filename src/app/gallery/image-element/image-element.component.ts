@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Image } from '../../../core/images-service.service';
 import { NgOptimizedImage } from '@angular/common';
+import { AnimateZoomInDirective } from '../../directives/animations';
 
 @Component({
   selector: 'app-image-element',
   standalone: true,
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, AnimateZoomInDirective],
   templateUrl: './image-element.component.html',
   styleUrl: './image-element.component.scss'
 })

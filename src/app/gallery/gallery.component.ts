@@ -13,6 +13,7 @@ export class GalleryComponent implements OnInit {
   images: Image[] = [];
 
   constructor(private readonly imageService: ImagesService) { }
+
   async ngOnInit(): Promise<void> {
     this.images = await this.imageService.getAll()
   }
