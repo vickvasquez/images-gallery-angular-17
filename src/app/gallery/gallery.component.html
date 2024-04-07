@@ -1,16 +1,12 @@
 <div class="gallery-container">
   <h2 class="title">Mi galeria</h2>
   <div class="images-list">
-    @if(loading) {
-      <p>Cargando datos...</p>
-    }@else {
-      @for(imageElement of images; track imageElement.id) {
-        <app-image-element [imageElement]="imageElement" (clickEvent)="getDetailImage(imageElement.id)" />
-      }
+    @for(imageElement of imageService.images(); track imageElement.id) {
+      <app-image-element [imageElement]="imageElement" (clickEvent)="getDetailImage(imageElement.id)" />
+    }
 
-      @empty {
-        <p>No se encontró ninguna imagen</p>
-      }
+    @empty {
+      <p>No se encontró ninguna imagen</p>
     }
   </div>
 </div>

@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Image } from '../../../core/images-service.service';
 import { NgOptimizedImage } from '@angular/common';
 import { AnimateZoomInDirective } from '../../directives/animations';
 
@@ -11,13 +10,13 @@ import { AnimateZoomInDirective } from '../../directives/animations';
   styleUrl: './image-element.component.scss'
 })
 export class ImageElementComponent {
-  @Input() imageElement: Image = {
+  @Input() imageElement = {
     name: '',
     url: '',
     id: 0
   }
 
-  @Output() clickEvent = new EventEmitter<Image>();
+  @Output() clickEvent = new EventEmitter();
 
   handleClick() {
     this.clickEvent.emit();
